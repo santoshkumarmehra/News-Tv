@@ -1,4 +1,4 @@
-{% extends 'news/base.html' %}
+{% extends 'newsapp/base.html' %}
 {% block title %}{{ category.name }} - The Daily News{% endblock %}
 {% block content %}
     <h1>{{ category.name }}</h1>
@@ -6,6 +6,9 @@
         <div class="news-item">
             <a href="{% url 'news_detail' item.slug %}">{{ item.title }}</a>
             <p class="pub-info">Published: {{ item.pub_date|date:"F j, Y, g:i A" }}</p>
+             {% if item.summary %}
+                        <p class="summary">{{ item.summary }}</p>
+                    {% endif %}
         </div>
     {% empty %}
         <p>No news in this category.</p>
