@@ -1,0 +1,15 @@
+{% extends 'news/base.html' %}
+{% block title %}{{ news_item.title }} - The Daily News{% endblock %}
+{% block content %}
+    <h1>{{ news_item.title }}</h1>
+    <p class="article-meta">
+        Category: {{ news_item.category.name }} | Published: {{ news_item.pub_date|date:"F j, Y, g:i A" }} | Author: {{ news_item.author }}
+    </p>
+    {% if news_item.image %}
+        <img src="{{ news_item.image.url }}" alt="{{ news_item.title }}" class="article-image">
+    {% endif %}
+    <div class="article-content">
+        {{ news_item.content|linebreaksbr }}
+    </div>
+    <p class="back-link"><a href="{% url 'home' %}">Back to Home</a></p>
+{% endblock %}

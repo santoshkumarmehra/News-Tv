@@ -1,0 +1,48 @@
+{% extends 'news/base.html' %}
+{% block title %}The Daily News{% endblock %}
+{% block content %}
+    {% if breaking_news %}
+        <div class="news-section breaking-news">
+            <h2>Breaking News</h2>
+            {% for item in breaking_news %}
+                <div class="news-item">
+                    <a href="{% url 'news_detail' item.slug %}">{{ item.title }}</a>
+                    <p class="pub-info">Published: {{ item.pub_date|date:"F j, Y, g:i A" }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if trending_news %}
+        <div class="news-section trending-news">
+            <h2>Trending News</h2>
+            {% for item in trending_news %}
+                <div class="news-item">
+                    <a href="{% url 'news_detail' item.slug %}">{{ item.title }}</a>
+                    <p class="pub-info">Published: {{ item.pub_date|date:"F j, Y, g:i A" }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="news-section latest-news">
+        <h2>Latest News</h2>
+        {% for item in latest_news %}
+            <div class="news-item">
+                <a href="{% url 'news_detail' item.slug %}">{{ item.title }}</a>
+                <p class="pub-info">Published: {{ item.pub_date|date:"F j, Y, g:i A" }}</p>
+            </div>
+        {% empty %}
+            <p>No latest news available.</p>
+        {% endfor %}
+    </div>
+
+    <div class="categories">
+        <h3>News Categories</h3>
+        <ul>
+            {% for category in categories %}
+                <li><a href="{% url 'category_news' category.name %}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
